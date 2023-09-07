@@ -77,9 +77,9 @@ namespace AeroBook.Controllers
                 bool isPasswordMatched = BCrypt.Net.BCrypt.Verify(user.Password, userObj.Password);
                 if (isPasswordMatched)
                 {
-					//To store the username in the session and using the usernam in layout to display login and log out
-                    string userName = HttpContext.Session.GetString("Admin");
-					ViewBag.IsLoggedIn = !string.IsNullOrEmpty(userName);
+                    //To store the username in the session and using the usernam in layout to display login and log out
+                    HttpContext.Session.SetString("UserName", "The Doctor");
+                    //ViewBag.IsLoggedIn = !string.IsNullOrEmpty(userName);
                     return RedirectToAction("HomePage");
                 }
                 else

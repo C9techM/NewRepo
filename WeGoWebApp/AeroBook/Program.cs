@@ -10,6 +10,7 @@ builder.Services.AddSession(options =>
     // Configure session options here
     options.IdleTimeout = TimeSpan.FromMinutes(20); // Adjust the timeout as needed
     options.Cookie.HttpOnly = true;
+    options.Cookie.IsEssential = true;
 });
 
 builder.Services.AddDbContext<AeroBookDbContext>(options =>

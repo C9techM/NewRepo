@@ -1,12 +1,14 @@
-﻿@page
-@using Microsoft.AspNetCore.Http
+﻿@using Microsoft.AspNetCore.Http
+@{
+    string userName = Context.Session.GetString("UserName");
+}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-@*    <title>@ViewData["Title"] - AeroBook</title>
-*@    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+   <title>@ViewData["Title"] - AeroBook</title>
+   <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/AeroBook.styles.css" asp-append-version="true" />
     <style>
@@ -79,7 +81,7 @@
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="AboutUs">About Us</a>
                         </li>
 
-                        @if (ViewData.ContainsKey("Message")&& ViewData["Message"] == "")
+                        @if (userName == "The Doctor")
                         {
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="LogOut">LogOut</a>
@@ -124,7 +126,7 @@
     </header>
     <div class="container">
         <main role="main" class="pb-3">
-            @*@RenderBody()*@
+            @RenderBody()*
         </main>
     </div>
 
@@ -132,6 +134,6 @@
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
-    @*@await RenderSectionAsync("Scripts", required: false)*@
+    @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>
