@@ -1,4 +1,6 @@
 using AeroBook.Data;
+using AeroBook.Repository;
+using AeroBook.Repository.IRepository;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -12,7 +14,7 @@ builder.Services.AddSession(options =>
     options.Cookie.HttpOnly = true;
     options.Cookie.IsEssential = true;
 });
-
+builder.Services.AddScoped<IAccountRepository,AccountRepository>();
 builder.Services.AddDbContext<AeroBookDbContext>(options =>
 options.UseSqlServer(builder.Configuration.GetConnectionString("AeroBookDbConnectionString")));
 
@@ -22,7 +24,7 @@ var app = builder.Build();
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {
-	app.UseExceptionHandler("/Home/Error");
+	app.UseExceptionHandler("/Account/Error");
 	// The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
 	app.UseHsts();
 }
@@ -37,6 +39,6 @@ app.UseAuthorization();
 
 app.MapControllerRoute(
 	name: "default",
-	pattern: "{controller=Home}/{action=SignUp}");
+	pattern: "{controller=Account}/{action=SignUp}");
 
 app.Run();

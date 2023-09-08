@@ -1,4 +1,4 @@
-﻿using AeroBook.Models.Account;
+﻿using AeroBook.Models.Flights;
 using Microsoft.EntityFrameworkCore;
 using AeroBook.Data.Models.Account;
 
@@ -8,6 +8,6 @@ namespace AeroBook.Data
 	{
 		public AeroBookDbContext(DbContextOptions options) : base(options) { }
 		public DbSet<User> Users { get; set; }
-		public DbSet<Models.Flights.Flightdetails> Flightdetails { get; set; } = default!;
+		public DbSet<Flightdetails> Flightdetails { get; set; }
 	}
 }

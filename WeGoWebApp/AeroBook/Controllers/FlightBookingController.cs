@@ -1,4 +1,4 @@
-﻿using AeroBook.Models.Flights;
+﻿using AeroBook.ViewModels.Flights;
 using Microsoft.AspNetCore.Mvc;
 using System;
 
@@ -38,10 +38,10 @@ namespace AeroBook.Controllers
         [HttpPost]
         public IActionResult Save(List<Flightdetails> selectedItems)
         {
-            // Process selectedItems (e.g., save them to a database or perform other actions)
 
             // Redirect to the Index action after saving
-            return RedirectToAction("FlightBookingView");
+            return RedirectToAction("Index", "Payment");
+
         }
     }
 }

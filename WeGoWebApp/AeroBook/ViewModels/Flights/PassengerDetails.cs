@@ -1,4 +1,4 @@
-﻿namespace AeroBook.Models.Flights
+﻿namespace AeroBook.ViewModels.Flights
 {
     public class PassengerDetails
     {
@@ -7,6 +7,5 @@
         public int Age { get; set; }
         public string AadharId { get; set; }
         public int BookingId { get; set; }
-        public virtual BookingDetails BookingDetails { get; set; }
     }
 }

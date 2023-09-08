@@ -1,19 +1,20 @@
 ﻿using AeroBook.Data;
 using AeroBook.Models;
-using AeroBook.Models.Account;
+using AeroBook.Repository.IRepository;
+using AeroBook.ViewModels.Account;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
 namespace AeroBook.Controllers
 {
-	public class HomeController : Controller
+	public class AccountController : Controller
 	{
-		private readonly ILogger<HomeController> _logger;
-		private readonly AeroBookDbContext _context;
+		private readonly ILogger<AccountController> _logger;
+		private readonly IAccountRepository _accountRepository;
 		
-		public HomeController(AeroBookDbContext context)
+		public AccountController(IAccountRepository accountRepository)
 		{
-			_context = context;
+			_accountRepository = accountRepository;
 		}
 
 		public IActionResult Homepage()
@@ -48,14 +49,14 @@ namespace AeroBook.Controllers
 				{
 					return View();
 				}
-				var userObj = new User()
+				 
+				var userObj = new AeroBook.Data.Models.Account.User()
 				{
 					Name = user.Name,
 					Email = user.Email,
 					Password = hashedPassword,
 				};
-				await _context.Users.AddAsync(userObj);
-				await _context.SaveChangesAsync();
+				
 				return RedirectToAction("Login");
 			}
 			return View();
@@ -70,8 +71,7 @@ namespace AeroBook.Controllers
 		[HttpPost]
 		public async Task<IActionResult> Login(User user)
 		{
-			User userObj = _context.Users?.FirstOrDefault(u => u.Email == user.Email && u.Password == user.Password);
-
+           var userObj =_accountRepository.Login(user.Email, user.Password);
 			if (userObj != null)
 			{
                 bool isPasswordMatched = BCrypt.Net.BCrypt.Verify(user.Password, userObj.Password);
@@ -79,7 +79,6 @@ namespace AeroBook.Controllers
                 {
                     //To store the username in the session and using the usernam in layout to display login and log out
                     HttpContext.Session.SetString("UserName", "userObj.Email");
-                    //ViewBag.IsLoggedIn = !string.IsNullOrEmpty(userName);
                     return RedirectToAction("HomePage");
                 }
                 else
@@ -96,11 +95,7 @@ namespace AeroBook.Controllers
         [HttpGet]
         public IActionResult LogOut()
         {
-            // Remove a specific item from the session
-            //HttpContext.Session.Remove("UserId");
-
-            // Clear all session data
-            HttpContext.Session.Clear();
+			HttpContext.Session.Clear();
 
             return View();
         }
