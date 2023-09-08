@@ -14,5 +14,6 @@ namespace AeroBook.Models.Flights
         public DateTime DepartureDate { get; set; }
         public string FromLocation { get; set; }
         public string ToLocation { get; set; }
+        public int PricePerPerson { get; set; }
     }
 }

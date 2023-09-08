@@ -1,0 +1,73 @@
+﻿@model List<AeroBook.Models.Flights.Flightdetails>
+@{
+    ViewData["Title"] = "Items";
+}
+
+<h1>Search Flights</h1>
+
+<form method="post" asp-action="Filter">
+    <label for="fromLocation">From:</label>
+    <input type="text" id="fromLocation" name="fromLocation" value="@ViewData["FromLocation"]" />
+
+    <label for="toLocation">To:</label>
+    <input type="text" id="toLocation" name="toLocation" value="@ViewData["ToLocation"]" />
+    <label for="Departure">Departure :</label>
+    <input type="datetime-local" id="Departure" name="Departure" value="@ViewData["Departure"]" />
+
+    <label for="cls">Class:</label>
+      <label for="persons">Number of Persons:</label>
+    <select id="persons" name="persons">
+        <option value="">All</option>
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+    </select> 
+    <select id="cls" name="cls">
+        <option value="">All</option>
+        <option value="Economy">Economy</option>
+        <option value="Business">Business</option>
+        <option value="Premium">Premium</option>
+    </select>
+
+    <button type="submit">Search</button>
+</form>
+
+@if (Model != null)
+{
+    <form method="post" asp-action="Save">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Select</th>
+                    <th>Flight Id</th>
+                    <th>Flight Name</th>
+                    <th>From Location</th>
+                    <th>To Location</th>
+                    <th>Departure Date</th>
+                    <th>Availability</th>
+                    <th>Price per Person</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            <input type="checkbox" name="selectedItems" value="@item.FlightId" />
+                        </td>
+                        <td>@item.FlightId</td>
+                        <td>@item.FightName</td>
+                        <td>@item.FromLocation</td>
+                        <td>@item.ToLocation</td>
+                        <td>@item.DepartureDate</td>
+                        <td>@item.Availability</td>
+                        <td>@item.PricePerPerson</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+        <button type="submit" class="btn btn-primary">Book Flight</button>
+
+    </form>
+}

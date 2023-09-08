@@ -78,7 +78,7 @@ namespace AeroBook.Controllers
                 if (isPasswordMatched)
                 {
                     //To store the username in the session and using the usernam in layout to display login and log out
-                    HttpContext.Session.SetString("UserName", userObj.Email);
+                    HttpContext.Session.SetString("UserName", "userObj.Email");
                     //ViewBag.IsLoggedIn = !string.IsNullOrEmpty(userName);
                     return RedirectToAction("HomePage");
                 }

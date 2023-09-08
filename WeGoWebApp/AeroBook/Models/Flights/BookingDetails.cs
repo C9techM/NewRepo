@@ -9,10 +9,10 @@ namespace AeroBook.Models.Flights
         public int BookingId { get; set; }
 
         public int FlightId { get; set; }
-        public string PaasengerName { get; set; }
-        public string PhoneNumber { get; set; }
-        public int Age { get; set; }
-        public string AadharId { get; set; }
+        public int PaymentMode { get; set; }
+        public int noOfPersons { get; set; }
+        public int TotalPay { get; set; }
+        public int paymentStatus { get; set; }
         public virtual Flightdetails Flightdetails { get; set; }
     }
 }
