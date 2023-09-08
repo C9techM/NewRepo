@@ -13,6 +13,7 @@ namespace AeroBook.Models.Flights
         public int noOfPersons { get; set; }
         public int TotalPay { get; set; }
         public int paymentStatus { get; set; }
+
         public virtual Flightdetails Flightdetails { get; set; }
     }
 }

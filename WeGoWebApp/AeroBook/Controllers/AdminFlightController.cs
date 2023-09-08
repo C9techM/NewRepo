@@ -10,11 +10,11 @@ using AeroBook.Models.Flights;
 
 namespace AeroBook.Controllers
 {
-    public class FlightdetailsController : Controller
+    public class AdminFlightController : Controller
     {
         private readonly AeroBookDbContext _context;
 
-        public FlightdetailsController(AeroBookDbContext context)
+        public AdminFlightController(AeroBookDbContext context)
         {
             _context = context;
         }

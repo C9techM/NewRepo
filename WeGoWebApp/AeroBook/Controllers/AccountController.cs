@@ -1,4 +1,5 @@
 ﻿using AeroBook.Data;
+using AeroBook.Data.Models.Error;
 using AeroBook.Models;
 using AeroBook.Repository.IRepository;
 using AeroBook.ViewModels.Account;

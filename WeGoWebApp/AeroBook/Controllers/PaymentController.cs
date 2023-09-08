@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using AeroBook.ViewModels.Booking;
+using Microsoft.AspNetCore.Mvc;
 
 namespace AeroBook.Controllers
 {
@@ -8,5 +9,14 @@ namespace AeroBook.Controllers
         {
             return View();
         }
+        [HttpPost]
+        public IActionResult Save(List<BookingViewModel> selectedItems)
+        {
+
+            // Redirect to the Index action after saving
+            return RedirectToAction("Index", "Payment");
+
+        }
+
     }
 }

@@ -1,7 +1,11 @@
-﻿namespace AeroBook.Models.Flights
+﻿using System.ComponentModel.DataAnnotations;
+namespace AeroBook.Models.Flights
+
 {
     public class PassengerDetails
     {
+        [Key]
+        public int PassengerId { get; set; }    
         public string PassengerName { get; set; }
         public string PhoneNumber { get; set; }
         public int Age { get; set; }
