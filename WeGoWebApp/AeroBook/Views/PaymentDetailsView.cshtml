@@ -1,0 +1,64 @@
+﻿@page
+@model PaymentDetailsModel
+
+<h1>Payment Details</h1>
+
+<form method="post" asp-page-handler="ProcessPayment">
+    <div class="form-group">
+        <label for="cardNumber">Card Number:</label>
+        <input type="text" id="cardNumber" name="model.CardNumber" class="form-control" required />
+    </div>
+
+    <div class="form-group">
+        <label for="expirationDate">Expiration Date:</label>
+        <input type="text" id="expirationDate" name="model.ExpirationDate" class="form-control" required />
+    </div>
+
+    <div class="form-group">
+        <label for="cvv">CVV:</label>
+        <input type="text" id="cvv" name="model.CVV" class="form-control" required />
+    </div>
+
+    <div class="form-group">
+        <label for="cardholderName">Cardholder Name:</label>
+        <input type="text" id="cardholderName" name="model.CardholderName" class="form-control" required />
+    </div>
+
+    <div class="form-group">
+        <label for="billingAddress">Billing Address:</label>
+        <input type="text" id="billingAddress" name="model.BillingAddress" class="form-control" required />
+    </div>
+
+    <div class="form-group">
+        <label for="email">Email Address:</label>
+        <input type="email" id="email" name="model.Email" class="form-control" required />
+    </div>
+
+    <div class="form-group">
+        <label for="phoneNumber">Phone Number:</label>
+        <input type="tel" id="phoneNumber" name="model.PhoneNumber" class="form-control" required />
+    </div>
+
+    <div class="form-group">
+        <label for="amount">Amount:</label>
+        <input type="number" id="amount" name="model.Amount" class="form-control" required />
+    </div>
+
+    <div class="form-group">
+        <label for="currency">Currency:</label>
+        <select id="currency" name="model.Currency" class="form-control" required>
+            <option value="USD">USD</option>
+            <option value="EUR">EUR</option>
+            <!-- Add more currency options as needed -->
+        </select>
+    </div>
+
+    <div class="form-check">
+        <input type="checkbox" id="termsAndConditions" name="model.AcceptTerms" class="form-check-input" required />
+        <label class="form-check-label" for="termsAndConditions">
+            I accept the <a href="/terms" target="_blank">terms and conditions</a>.
+        </label>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Submit Payment</button>
+</form>
