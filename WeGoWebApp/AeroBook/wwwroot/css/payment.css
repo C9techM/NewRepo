@@ -1,4 +1,9 @@
-﻿
+﻿body {
+    background-image: url('image/flight.png');
+    background-size: cover; /* Cover the entire background */
+    background-repeat: no-repeat; /* Prevent image repetition */
+    background-attachment: fixed;
+}
 #cardNumber {
     border: 1px solid #ccc;
     border-radius: 5px;
@@ -22,7 +27,6 @@ label {
     background-color: #007bff;
 }
 
-/* Style the success message */
 .alert-success {
     background-color: #28a745;
     color: white;

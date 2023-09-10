@@ -1,83 +1,156 @@
 ﻿@page
 @model AeroBook.ViewModels.Booking.BookingViewModel
 
-<h1>Payment Page</h1>
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="~/css/payment.css">
+</head>
+<body>
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header bg-primary text-white">
+                        <h1 class="text-center">Payment Page</h1>
+                    </div>
+                    <div class="card-body">
+                        <form method="post" asp-action="ProcessPayment">
+                            <div class="form-group">
+                                <label for="cardNumber">Card Number:</label>
+                                <input type="text" id="cardNumber" name="model.CardNumber" class="form-control" required />
+                            </div>
 
-<form method="post" asp-action="ProcessPayment">
-    <div class="form-group">
-        <label for="cardNumber">Card Number:</label>
-        <input type="text" id="cardNumber" name="model.CardNumber" class="form-control" required />
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
-    </div>
+                            <div class="form-group">
+                                <label>Expiration Date:</label>
+                                <div class="row">
+                                    <div class="col">
+                                        <select id="expirationMonth" name="model.ExpirationMonth" class="form-control" required>
+                                            <option value="">Month</option>
+                                            <option value="01">01 - January</option>
+                                            <option value="02">02 - February</option>
+                                            <option value="03">03 - March</option>
+                                            <option value="04">04 - April</option>
+                                            <option value="05">05 - May</option>
+                                            <option value="06">06 - June</option>
+                                            <option value="07">07 - July</option>
+                                            <option value="08">08 - August</option>
+                                            <option value="09">09 - September</option>
+                                            <option value="10">10 - October</option>
+                                            <option value="11">11 - November</option>
+                                            <option value="12">12 - December</option>
+                                        </select>
+                                    </div>
+                                    <div class="col">
+                                        <select id="expirationYear" name="model.ExpirationYear" class="form-control" required>
+                                            <option value="">Year</option>
+                                            @for (int year = DateTime.Now.Year; year <= DateTime.Now.Year + 10; year++)
+                                            {
+                                                <option value="@year">@year</option>
+                                            }
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
 
-    <div class="form-group">
-        <label>Expiration Date:</label>
-        <div class="row">
-            <div class="col">
-                <select id="expirationMonth" name="model.ExpirationMonth" class="form-control" required>
-                    <option value="">Month</option>
-                    <option value="01">01 - January</option>
-                    <option value="02">02 - February</option>
-                    <option value="03">03 - March</option>
-                    <option value="04">04 - April</option>
-                    <option value="05">05 - May</option>
-                    <option value="06">06 - June</option>
-                    <option value="07">07 - July</option>
-                    <option value="08">08 - August</option>
-                    <option value="09">09 - September</option>
-                    <option value="10">10 - October</option>
-                    <option value="11">11 - November</option>
-                    <option value="12">12 - December</option>
-                </select>
-            </div>
-            <div class="col">
-                <select id="expirationYear" name="model.ExpirationYear" class="form-control" required>
-                    <option value="">Year</option>
-                    @for (int year = DateTime.Now.Year; year <= DateTime.Now.Year + 10; year++)
-                    {
-                        <option value="@year">@year</option>
-                    }
-                </select>
+                            <div class="form-group">
+                                <label for="cvv">CVV:</label>
+                                <input type="text" id="cvv" name="model.CVV" class="form-control" required />
+                            </div>
+
+                            <div class="form-group">
+                                <label for="cardholderName">Cardholder Name:</label>
+                                <input type="text" id="cardholderName" name="model.CardholderName" class="form-control" required />
+                            </div>
+
+                            <div class="form-group">
+                                <label for="currency">Currency:</label>
+                                <select id="currency" name="model.Currency" class="form-control" required>
+                                    <option value="">Select currency</option>
+                                    <option value="INR">INR</option>
+                                    <option value="USD">USD</option>
+                                    <option value="EUR">EUR</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="paymentMethod">Payment Method:</label>
+                                <select id="paymentMethod" name="model.PaymentMethod" class="form-control" required>
+                                    <option value="">Select a payment method</option>
+                                    <option value="PhonePe">PhonePe</option>
+                                    <option value="GPay">GPay</option>
+                                    <option value="Paytm">Paytm</option>
+                                    <option value="CreditCard">Credit Card</option>
+                                    <option value="PayPal">PayPal</option>
+                                    <option value="NetBanking">Net Banking</option>
+                                </select>
+                            </div>
+
+                            <div class="form-check">
+                                <input type="checkbox" id="termsAndConditions" name="model.AcceptTerms" class="form-check-input" required />
+                                <label class="form-check-label" for="termsAndConditions">
+                                    I accept the <a href="/terms" target="_blank">terms and conditions</a>
+                                </label>
+                            </div>
+                            <br/>
+                            <div class="text-center">
+                                <button type="submit" class="btn btn-primary" data-toggle="modal" data-target="#paymentSuccessModal">Proceed with Payment</button>
+                            </div>
+                            
+                            <div class="modal fade" id="paymentSuccessModal" tabindex="-1" role="dialog" aria-labelledby="paymentSuccessModalLabel" aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header bg-success text-white">
+                                            <h5 class="modal-title" id="paymentSuccessModalLabel">Payment Successful</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <p>Your payment has been processed successfully.</p>
+                                            <p>Booking Successful ! Enjoy the journey !</p>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-primary" onclick="redirectToBookingSuccess()">Close</button>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+
+                        </form>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 
-    <div class="form-group">
-        <label for="cvv">CVV:</label>
-        <input type="text" id="cvv" name="model.CVV" class="form-control" required />
-    </div>
+    
 
-    <div class="form-group">
-        <label for="cardholderName">Cardholder Name:</label>
-        <input type="text" id="cardholderName" name="model.CardholderName" class="form-control" required />
-    </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
-    <div class="form-group">
-        <label for="currency">Currency:</label>
-        <select id="currency" name="model.Currency" class="form-control" required>
-            <option value="">Select currency</option>
-            <option value="INR">INR</option>
-            <option value="USD">USD</option>
-            <option value="EUR">EUR</option>
-        </select>
-    </div>
+    <script>
+        $(document).ready(function () {
+            setTimeout(function () {
+                $('#paymentSuccessModal').modal('hide');
+            }, 5000);
+        });
+    </script>
 
-    <div class="form-group">
-        <label for="paymentMethod">Payment Method:</label>
-        <select id="paymentMethod" name="model.PaymentMethod" class="form-control" required>
-            <option value="">Select a payment method</option>
-            <option value="CreditCard">Credit Card</option>
-            <option value="PayPal">PayPal</option>
-            <option value="BankTransfer">Bank Transfer</option>
-        </select>
-    </div>
+   <script>
+        function redirectToBookingSuccess() {
+            // Close the payment success modal
+            $('#paymentSuccessModal').modal('hide');
 
-    <div class="form-check">
-        <input type="checkbox" id="termsAndConditions" name="model.AcceptTerms" class="form-check-input" required />
-        <label class="form-check-label" for="termsAndConditions">
-            I accept the <a href="/terms" target="_blank">terms and conditions</a>
-        </label>
-    </div>
+            // Redirect to the booking success page
+            window.location.href = '/Login';
+        }
+    </script>
 
-    <button type="submit" class="btn btn-primary">Proceed with Payment</button>
-</form>
+</body>
+</html>
