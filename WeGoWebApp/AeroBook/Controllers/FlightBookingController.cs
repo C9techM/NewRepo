@@ -36,10 +36,8 @@ namespace AeroBook.Controllers
         [HttpPost]
         public IActionResult Save(List<Flightdetails> selectedItems)
         {
-
-            // Redirect to the Index action after saving
+            // Redirect to the Payment Index action after saving
             return RedirectToAction("Index", "Payment");
-
         }
     }
 }

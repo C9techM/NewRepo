@@ -1,6 +1,7 @@
 ﻿@using Microsoft.AspNetCore.Http
 @{
-    string userName = Context.Session.GetString("UserName");
+    string Email = Context.Session.GetString("Email");
+    string Password = Context.Session.GetString("Password");
 }
 <!DOCTYPE html>
 <html lang="en">
@@ -67,7 +68,7 @@
 
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
-                        @if (userName == "admin@gmail.com")
+                        @if (Email == "admin@gmail.com" && Password == "Admin@243")
                         {
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-controller="FlightDetails" asp-action="Index">Flights</a>
@@ -101,7 +102,7 @@
                             </li>
                         }
 
-                        @if (userName !=null)
+                        @if (Email !=null)
                         {
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="LogOut">LogOut</a>
