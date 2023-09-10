@@ -5,13 +5,6 @@
 }
 
 <style>
-    /*body {
-        background-image: url('quizbg.png');
-        background-size: cover;
-        background-repeat: no-repeat;
-        background-attachment: fixed;
-    }*/
-
     .container {
         display: flex;
         justify-content: center;
@@ -48,8 +41,8 @@
 
 <div class="container">
     <div class="register-box">
-        <h2>Create a new Accouont</h2>
-        @using (Html.BeginForm("SignUp", "Home", FormMethod.Post))
+        <h2>Create a new Account</h2>
+        @using (Html.BeginForm("SignUp", "Account", FormMethod.Post))
         {
             @Html.AntiForgeryToken()
             <div class="form-group">
@@ -71,6 +64,6 @@
             
             <button type="submit" class="btn btn-primary">Sign Up</button>
         }
-        <p>Have an account already? <a href="@Url.Action("Login", "Home")">Login</a></p>
+        <p>Have an account already? <a href="@Url.Action("Login", "Account")">Login</a></p>
     </div>
 </div>

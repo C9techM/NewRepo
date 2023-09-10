@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace AeroBook.Repository
 {
-    public class AccountRepository:IAccountRepository
+    public class AccountRepository: IAccountRepository
     {
         private readonly AeroBookDbContext _dbContext;
         public AccountRepository(AeroBookDbContext context) 

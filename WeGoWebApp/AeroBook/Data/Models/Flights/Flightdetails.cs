@@ -8,7 +8,7 @@ namespace AeroBook.Models.Flights
         //Add the flight details  
         [Key]
         public int FlightId { get; set; }
-        public string FightName { get; set; }
+        public string FlightName { get; set; }
         public string Availability { get; set; }
         public DateTime ArrivalTime { get; set; }
         public DateTime DepartureDate { get; set; }

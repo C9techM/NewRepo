@@ -42,7 +42,6 @@ namespace AeroBook.Controllers
 		[HttpPost]
 		public async Task<IActionResult> SignUp(User user)
 		{
-			
             string hashedPassword = BCrypt.Net.BCrypt.HashPassword(user.Password);
             if (ModelState.IsValid)
 			{
@@ -51,13 +50,12 @@ namespace AeroBook.Controllers
 					return View();
 				}
 				 
-				var userObj = new AeroBook.Data.Models.Account.User()
+				var userObj = new User()
 				{
 					Name = user.Name,
 					Email = user.Email,
 					Password = hashedPassword,
 				};
-				
 				return RedirectToAction("Login");
 			}
 			return View();
@@ -78,7 +76,7 @@ namespace AeroBook.Controllers
                 bool isPasswordMatched = BCrypt.Net.BCrypt.Verify(user.Password, userObj.Password);
                 if (isPasswordMatched)
                 {
-                    //To store the username in the session and using the usernam in layout to display login and log out
+                    //To store the username in the session and using the username in layout to display login and log out
                     HttpContext.Session.SetString("UserName", "userObj.Email");
                     return RedirectToAction("HomePage");
                 }
@@ -89,15 +87,27 @@ namespace AeroBook.Controllers
                 }
             }
 			ViewBag.ErrorMessage = "User not found";
-			return View("Login","Home");
+			return View("Login","Account");
 		}
 
+        //public IActionResult MyBookings()
+        //{
+        //    return View();
+        //}
+        //[HttpPost]
+        //public async Task<IActionResult> MyBookings(User user)
+        //{
+            
+                
+        //        return RedirectToAction("Login");
+            
+        //    return View();
+        //}
 
         [HttpGet]
         public IActionResult LogOut()
         {
 			HttpContext.Session.Clear();
-
             return View();
         }
     }

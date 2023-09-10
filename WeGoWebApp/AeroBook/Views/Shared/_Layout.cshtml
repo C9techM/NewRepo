@@ -67,19 +67,19 @@
 
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
-                        @if (userName == "Admin@gmail.com")
+                        @if (userName == "admin@gmail.com")
                         {
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-controller="FlightDetails" asp-action="Index">Flights</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Hotel">Hotels</a>
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Hotel">Hotels</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Cab">Cabs</a>
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Cab">Cabs</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="AboutUs">About Us</a>
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="AboutUs">About Us</a>
                             </li>
                         }
                         else
@@ -88,31 +88,31 @@
                                 <a class="nav-link text-dark" asp-area="" asp-controller="FlightBooking" asp-action="FlightBookingView">Flights</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Hotel">Hotels</a>
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Hotel">Hotels</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Cab">Cabs</a>
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Cab">Cabs</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="AboutUs">About Us</a>
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="AboutUs">About Us</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="MyBookings">My Bookings</a>
                             </li>
                         }
 
                         @if (userName !=null)
                         {
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="LogOut">LogOut</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="LogOut">LogOut</a>
                         </li>
                         }
                         else
                         {
                         <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Login">LogIn</a>
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Login">Login</a>
                         </li>
                         }
-                        
-                        
-
                     </ul>
                 </div>
             </div>

@@ -6,8 +6,6 @@ namespace AeroBook.Controllers
 {
     public class FlightBookingController : Controller
     {
-        
-
         public IActionResult FlightBookingView()
         {
             return View();
@@ -18,9 +16,9 @@ namespace AeroBook.Controllers
         {
         List<Flightdetails> items = new List<Flightdetails>
         {
-            new Flightdetails { FlightId = 1, FightName = "Amigo",FromLocation="Hyder" ,ToLocation="sec",DepartureDate = DateTime.Now ,Availability="2",PricePerPerson =900 },
-            new Flightdetails { FlightId = 2, FightName = "T",FromLocation="Hydernagar",ToLocation="secf", DepartureDate = DateTime.Now,Availability="2" ,PricePerPerson =898},
-            new Flightdetails { FlightId = 3, FightName = "Airwo",FromLocation="Hydercev" ,ToLocation="sedb",DepartureDate = DateTime.Now , Availability = "2",PricePerPerson =909},
+            new Flightdetails { FlightId = 1, FlightName = "Amigo",FromLocation="Hyder" ,ToLocation="sec",DepartureDate = DateTime.Now ,Availability="2",PricePerPerson =900 },
+            new Flightdetails { FlightId = 2, FlightName = "T",FromLocation="Hydernagar",ToLocation="secf", DepartureDate = DateTime.Now,Availability="2" ,PricePerPerson =898},
+            new Flightdetails { FlightId = 3, FlightName = "Airwo",FromLocation="Hydercev" ,ToLocation="sedb",DepartureDate = DateTime.Now , Availability = "2",PricePerPerson =909},
             // Add more items here
         };
             ViewData["FromLocation"] = FromLocation;

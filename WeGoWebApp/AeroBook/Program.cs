@@ -18,7 +18,6 @@ builder.Services.AddScoped<IAccountRepository,AccountRepository>();
 builder.Services.AddDbContext<AeroBookDbContext>(options =>
 options.UseSqlServer(builder.Configuration.GetConnectionString("AeroBookDbConnectionString")));
 
-
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -39,6 +38,6 @@ app.UseAuthorization();
 
 app.MapControllerRoute(
 	name: "default",
-	pattern: "{controller=Account}/{action=SignUp}");
+	pattern: "{controller=Account}/{action=Homepage}");
 
 app.Run();
