@@ -1,4 +1,5 @@
-﻿using AeroBook.ViewModels.Flights;
+﻿using AeroBook.Data;
+using AeroBook.ViewModels.Flights;
 using Microsoft.AspNetCore.Mvc;
 using System;
 
@@ -6,21 +7,24 @@ namespace AeroBook.Controllers
 {
     public class FlightBookingController : Controller
     {
+        private readonly AeroBookDbContext _context;
+        public FlightBookingController(AeroBookDbContext context)
+        {
+            _context = context;
+        }
+
+
         public IActionResult FlightBookingView()
         {
+
             return View();
         }
 
         [HttpPost]
         public IActionResult Filter(string FromLocation,string ToLocation,DateTime Departure, string person)
         {
-        List<Flightdetails> items = new List<Flightdetails>
-        {
-            new Flightdetails { FlightId = 1, FlightName = "Amigo",FromLocation="Hyder" ,ToLocation="sec",DepartureDate = DateTime.Now ,Availability="2",PricePerPerson =900 },
-            new Flightdetails { FlightId = 2, FlightName = "T",FromLocation="Hydernagar",ToLocation="secf", DepartureDate = DateTime.Now,Availability="2" ,PricePerPerson =898},
-            new Flightdetails { FlightId = 3, FlightName = "Airwo",FromLocation="Hydercev" ,ToLocation="sedb",DepartureDate = DateTime.Now , Availability = "2",PricePerPerson =909},
-            // Add more items here
-        };
+            List<Flightdetails> items = new List<Flightdetails>();
+        
             ViewData["FromLocation"] = FromLocation;
             ViewData["ToLocation"] = ToLocation;
             if (string.IsNullOrEmpty(FromLocation))
@@ -29,8 +33,19 @@ namespace AeroBook.Controllers
                 return View("FlightBookingView", items);
             }
 
-            var filteredItems = items.FindAll(item => item.FromLocation == FromLocation);
-            return View("FlightBookingView", filteredItems);
+            var filteredItems = _context.Flightdetails.Where(item => item.FromLocation == FromLocation).ToList();
+            foreach (var item in filteredItems)
+            {
+                Flightdetails flightdetails= new Flightdetails();
+                flightdetails.DepartureDate = item.DepartureDate;
+                flightdetails.ArrivalTime = item.ArrivalTime;   
+                flightdetails.Availability = item.Availability;
+                flightdetails.FlightName = item.FlightName; 
+                flightdetails.PricePerPerson = item.PricePerPerson;
+                flightdetails.FlightId = item.FlightId;
+                items.Add(flightdetails);
+            }
+            return View("FlightBookingView", items);
         }
 
         [HttpPost]
