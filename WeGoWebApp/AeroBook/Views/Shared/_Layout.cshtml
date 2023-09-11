@@ -1,7 +1,6 @@
 ﻿@using Microsoft.AspNetCore.Http
 @{
-    string Email = Context.Session.GetString("Email");
-    string Password = Context.Session.GetString("Password");
+    string Email = Context.Session.GetString("UserName");
 }
 <!DOCTYPE html>
 <html lang="en">
@@ -68,10 +67,10 @@
 
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
-                        @if (Email == "admin@gmail.com" && Password == "Admin@243")
+                        @if (Email == "admin@gmail.com")
                         {
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="FlightDetails" asp-action="Index">Flights</a>
+                                <a class="nav-link text-dark" asp-area="" asp-controller="AdminFlight" asp-action="Index">Flights</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Hotel">Hotels</a>
@@ -83,7 +82,7 @@
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="AboutUs">About Us</a>
                             </li>
                         }
-                        else
+                        else if(Email!= null)
                         {
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-controller="FlightBooking" asp-action="FlightBookingView">Flights</a>
@@ -121,7 +120,7 @@
     </header>
     <div class="container">
         <main role="main" class="pb-3">
-            @RenderBody()*
+            @RenderBody()
         </main>
     </div>
 

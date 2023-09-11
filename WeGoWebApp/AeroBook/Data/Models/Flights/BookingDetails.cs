@@ -1,10 +1,9 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace AeroBook.Models.Flights
+namespace AeroBook.Data.Models.Flights
 {
     public class BookingDetails
     {
-        //should map with the flightid and passenger details check in time and check out
         [Key]
         public int BookingId { get; set; }
 

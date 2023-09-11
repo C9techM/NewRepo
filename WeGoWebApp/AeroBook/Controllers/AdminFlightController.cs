@@ -6,10 +6,11 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using AeroBook.Data;
-using AeroBook.Models.Flights;
+using AeroBook.ViewModels.Flights;
 
 namespace AeroBook.Controllers
 {
+
     public class AdminFlightController : Controller
     {
         private readonly AeroBookDbContext _context;
@@ -20,44 +21,49 @@ namespace AeroBook.Controllers
         }
 
         // GET: Flightdetails
-        public async Task<IActionResult> Index()
+        public  IActionResult Index()
         {
-            //return _context.Flightdetails != null ? 
-            //            View(await _context.Flightdetails.ToListAsync()) :
-            //            Problem("Entity set 'AeroBookDbContext.Flightdetails'  is null.");
+            List<Flightdetails> details = new List<Flightdetails>();
 
-            List<Flightdetails> detailsList = new List<Flightdetails>();
+            var data = _context.Flightdetails?.ToList();
+            foreach(var d in data )
+            {
+                Flightdetails flightdetails= new Flightdetails();
+                flightdetails.Availability = d.Availability;    
+                flightdetails.ArrivalTime = d.ArrivalTime;  
+                flightdetails.PricePerPerson = d.PricePerPerson;    
+                flightdetails.DepartureDate= d.DepartureDate;
+                flightdetails.FromLocation = d.FromLocation;    
+                flightdetails.ToLocation = d.ToLocation;
+                flightdetails.FlightName = d.FlightName; 
+                flightdetails.FlightId = d.FlightId;
+                details.Add(flightdetails);
+            }
+            return View(details);
 
-            Flightdetails details = new Flightdetails();
-
-            details.ArrivalTime = DateTime.Now;
-            details.FromLocation = "Chennai";
-
-            detailsList.Add(details);
-            
-            
-
-
-
-            return _context.Flightdetails != null ?
-                          View(detailsList) :
-                          Problem("Entity set 'AeroBookDbContext.Flightdetails'  is null.");
         }
 
         // GET: Flightdetails/Details/5
-        public async Task<IActionResult> Details(string FromLocation,string ToLocation)
+        public IActionResult Details(int id)
         {
-            Flightdetails details = new Flightdetails();    
+            Flightdetails details = new Flightdetails();
 
-            details.ArrivalTime = DateTime.Now;
-            details.FromLocation = "Chennai";
 
-            //var flightdetails = await _context.Flightdetails.Where(x => x.FromLocation == FromLocation && x.ToLocation == ToLocation).ToListAsync();
-                
-            //if (flightdetails == null)
-            //{
-            //    return NotFound();
-            //}
+
+            var flightdetails =  _context.Flightdetails.Where(x => x.FlightId ==id).FirstOrDefault();
+            details.ArrivalTime = flightdetails.ArrivalTime;
+            details.DepartureDate = flightdetails.DepartureDate;
+            details.PricePerPerson = flightdetails.PricePerPerson;
+            details.FromLocation= flightdetails.FromLocation;
+            details.ToLocation = flightdetails.ToLocation;
+            details.Availability = flightdetails.Availability;
+            details.FlightId = flightdetails.FlightId;
+            details.FlightName =flightdetails.FlightName;
+
+            if (flightdetails == null)
+            {
+                return NotFound();
+            }
 
             return View(details);
         }
@@ -73,14 +79,22 @@ namespace AeroBook.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("FlightId,FightName,Availability,ArrivalTime,DepartureDate,FromLocation,ToLocation")] Flightdetails flightdetails)
+        public IActionResult Create( Flightdetails flightdetails)
         {
-            if (ModelState.IsValid)
-            {
-                _context.Add(flightdetails);
-                await _context.SaveChangesAsync();
+            AeroBook.Data.Models.Flights.Flightdetails details = new Data.Models.Flights.Flightdetails();
+            details.FlightName = flightdetails.FlightName;
+            details.ArrivalTime=flightdetails.ArrivalTime;
+            details.FromLocation = flightdetails.FromLocation;  
+            details.ToLocation = flightdetails.ToLocation;
+            details.PricePerPerson = flightdetails.PricePerPerson;  
+            details.Availability = flightdetails.Availability;  
+            details.DepartureDate = flightdetails.DepartureDate;
+            details.FlightId= flightdetails.FlightId;   
+
+                _context.Add(details);
+                 _context.SaveChanges();
                 return RedirectToAction(nameof(Index));
-            }
+           
             return View(flightdetails);
         }
 
@@ -97,41 +111,51 @@ namespace AeroBook.Controllers
             {
                 return NotFound();
             }
-            return View(flightdetails);
+            AeroBook.ViewModels.Flights.Flightdetails details = new ViewModels.Flights.Flightdetails();
+            details.ArrivalTime = flightdetails.ArrivalTime;
+            details.PricePerPerson = flightdetails.PricePerPerson;
+            details.Availability = flightdetails.Availability;
+            details.DepartureDate = flightdetails.DepartureDate;
+            details.FromLocation = flightdetails.FromLocation;
+            details.ToLocation = flightdetails.ToLocation;
+            details.FlightName = flightdetails.FlightName;
+            details.FlightId= flightdetails.FlightId;
+
+            return View(details);
         }
 
-        // POST: Flightdetails/Edit/5
+        //POST: Flightdetails/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("FlightId,FightName,Availability,ArrivalTime,DepartureDate,FromLocation,ToLocation")] Flightdetails flightdetails)
-        {
-            if (id != flightdetails.FlightId)
-            {
-                return NotFound();
-            }
+        public async Task<IActionResult> Edit(int id,  Flightdetails flightdetails)
 
-            if (ModelState.IsValid)
-            {
-                try
+        {
+            AeroBook.Data.Models.Flights.Flightdetails details = new Data.Models.Flights.Flightdetails();
+
+           
+            try
                 {
-                    _context.Update(flightdetails);
-                    await _context.SaveChangesAsync();
+                details = _context.Flightdetails?.Where(x=>x.FlightId== flightdetails.FlightId)?.FirstOrDefault();
+
+                details.FlightName = flightdetails.FlightName;
+                details.ArrivalTime = flightdetails.ArrivalTime;
+                details.FromLocation = flightdetails.FromLocation;
+                details.ToLocation = flightdetails.ToLocation;
+                details.PricePerPerson = flightdetails.PricePerPerson;
+                details.Availability = flightdetails.Availability;
+                details.DepartureDate = flightdetails.DepartureDate;
+
+                _context.Update(details);
+                _context.SaveChanges();
                 }
-                catch (DbUpdateConcurrencyException)
+                catch (Exception ex)
                 {
-                    if (!FlightdetailsExists(flightdetails.FlightId))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
+                   
                 }
                 return RedirectToAction(nameof(Index));
-            }
+            
             return View(flightdetails);
         }
 
@@ -149,26 +173,34 @@ namespace AeroBook.Controllers
             {
                 return NotFound();
             }
-
-            return View(flightdetails);
+            AeroBook.ViewModels.Flights.Flightdetails details = new ViewModels.Flights.Flightdetails();
+            details.ArrivalTime = flightdetails.ArrivalTime;
+            details.PricePerPerson = flightdetails.PricePerPerson;
+            details.Availability = flightdetails.Availability;
+            details.DepartureDate = flightdetails.DepartureDate;
+            details.FromLocation = flightdetails.FromLocation;
+            details.ToLocation = flightdetails.ToLocation;
+            details.FlightName = flightdetails.FlightName;
+            details.FlightId = flightdetails.FlightId;
+            return View(details);
         }
 
         // POST: Flightdetails/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
+        public IActionResult DeleteConfirmed(int id)
         {
             if (_context.Flightdetails == null)
             {
                 return Problem("Entity set 'AeroBookDbContext.Flightdetails'  is null.");
             }
-            var flightdetails = await _context.Flightdetails.FindAsync(id);
+            var flightdetails =  _context.Flightdetails.Find(id);
             if (flightdetails != null)
             {
                 _context.Flightdetails.Remove(flightdetails);
             }
             
-            await _context.SaveChangesAsync();
+             _context.SaveChanges();
             return RedirectToAction(nameof(Index));
         }
 

@@ -1,6 +1,5 @@
 ﻿using AeroBook.Data;
 using AeroBook.Data.Models.Error;
-using AeroBook.Models;
 using AeroBook.Repository.IRepository;
 using AeroBook.ViewModels.Account;
 using Microsoft.AspNetCore.Mvc;
@@ -50,12 +49,13 @@ namespace AeroBook.Controllers
 					return View();
 				}
 				 
-				var userObj = new User()
+				var userObj = new AeroBook.Data.Models.Account.User()
 				{
 					Name = user.Name,
 					Email = user.Email,
 					Password = hashedPassword,
 				};
+				_accountRepository.SignUp(userObj);
 				return RedirectToAction("Login");
 			}
 			return View();
@@ -77,7 +77,7 @@ namespace AeroBook.Controllers
                 if (isPasswordMatched)
                 {
                     //To store the username in the session and using the username in layout to display login and log out
-                    HttpContext.Session.SetString("UserName", "userObj.Email");
+                    HttpContext.Session.SetString("UserName", userObj.Email);
                     return RedirectToAction("HomePage");
                 }
                 else

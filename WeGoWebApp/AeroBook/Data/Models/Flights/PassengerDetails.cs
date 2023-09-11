@@ -1,5 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
-namespace AeroBook.Models.Flights
+namespace AeroBook.Data.Models.Flights
 
 {
     public class PassengerDetails

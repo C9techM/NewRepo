@@ -14,12 +14,16 @@ namespace AeroBook.Repository
         }
         public void SignUp(User user)
         {
-             _dbContext.Users.Add(user);
-             _dbContext.SaveChangesAsync();
+            User userdata = new User();
+            userdata.Email =   user.Email;
+            userdata.Password= user.Password;
+            userdata.Name= user.Name;
+             _dbContext.Users.Add(userdata);
+             _dbContext.SaveChanges();
         }
         public User Login(string Email, string Password)
         {
-           return _dbContext.Users?.FirstOrDefault(u => u.Email == Email && u.Password == Password);
+           return _dbContext.Users?.FirstOrDefault(u => u.Email == Email);
         }
     }
 }

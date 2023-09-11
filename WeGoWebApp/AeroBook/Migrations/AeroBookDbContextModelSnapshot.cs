@@ -47,7 +47,7 @@ namespace AeroBook.Migrations
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("AeroBook.Models.Flights.BookingDetails", b =>
+            modelBuilder.Entity("AeroBook.Data.Models.Flights.BookingDetails", b =>
                 {
                     b.Property<int>("BookingId")
                         .ValueGeneratedOnAdd()
@@ -80,7 +80,7 @@ namespace AeroBook.Migrations
                     b.ToTable("BookingDetails");
                 });
 
-            modelBuilder.Entity("AeroBook.Models.Flights.Flightdetails", b =>
+            modelBuilder.Entity("AeroBook.Data.Models.Flights.Flightdetails", b =>
                 {
                     b.Property<int>("FlightId")
                         .ValueGeneratedOnAdd()
@@ -118,7 +118,7 @@ namespace AeroBook.Migrations
                     b.ToTable("Flightdetails");
                 });
 
-            modelBuilder.Entity("AeroBook.Models.Flights.PassengerDetails", b =>
+            modelBuilder.Entity("AeroBook.Data.Models.Flights.PassengerDetails", b =>
                 {
                     b.Property<int>("PassengerId")
                         .ValueGeneratedOnAdd()
@@ -154,64 +154,9 @@ namespace AeroBook.Migrations
                     b.ToTable("PassengerDetails");
                 });
 
-            modelBuilder.Entity("AeroBook.ViewModels.Booking.BookingViewModel", b =>
+            modelBuilder.Entity("AeroBook.Data.Models.Flights.BookingDetails", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<bool>("AcceptTerms")
-                        .HasColumnType("bit");
-
-                    b.Property<decimal>("Amount")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<string>("BillingAddress")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("CVV")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("CardNumber")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("CardholderName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Currency")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Email")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ExpirationMonth")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ExpirationYear")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("PhoneNumber")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("BookingViewModels");
-                });
-
-            modelBuilder.Entity("AeroBook.Models.Flights.BookingDetails", b =>
-                {
-                    b.HasOne("AeroBook.Models.Flights.Flightdetails", "Flightdetails")
+                    b.HasOne("AeroBook.Data.Models.Flights.Flightdetails", "Flightdetails")
                         .WithMany()
                         .HasForeignKey("FlightdetailsFlightId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -220,9 +165,9 @@ namespace AeroBook.Migrations
                     b.Navigation("Flightdetails");
                 });
 
-            modelBuilder.Entity("AeroBook.Models.Flights.PassengerDetails", b =>
+            modelBuilder.Entity("AeroBook.Data.Models.Flights.PassengerDetails", b =>
                 {
-                    b.HasOne("AeroBook.Models.Flights.BookingDetails", "BookingDetails")
+                    b.HasOne("AeroBook.Data.Models.Flights.BookingDetails", "BookingDetails")
                         .WithMany()
                         .HasForeignKey("BookingDetailsBookingId")
                         .OnDelete(DeleteBehavior.Cascade)

@@ -19,10 +19,6 @@ namespace AeroBook.Data.Models.Account
                             ErrorMessage = "Enter a valid Password with at least one lowercase letter, one uppercase letter, one digit, and one special character, with a minimum length of 5 characters.")]
         public string Password { get; set; }
 
-        [Required]
-        [NotMapped]
-        [Compare("Password", ErrorMessage = "Passwords do not match.")]
-        [DataType(DataType.Password)]
-        public string ConfirmPassword { get; set; }
+
     }
 }

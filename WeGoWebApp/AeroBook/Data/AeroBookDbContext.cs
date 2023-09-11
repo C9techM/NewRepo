@@ -1,7 +1,7 @@
-﻿using AeroBook.Models.Flights;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
+using AeroBook.Data.Models;
 using AeroBook.Data.Models.Account;
-using AeroBook.ViewModels.Booking;
+using AeroBook.Data.Models.Flights;
 
 namespace AeroBook.Data
 {
@@ -12,6 +12,5 @@ namespace AeroBook.Data
 		public DbSet<Flightdetails> Flightdetails { get; set; }
 		public DbSet<BookingDetails> BookingDetails { get; set; }
 		public DbSet<PassengerDetails> PassengerDetails { get; set; }
-		public DbSet<BookingViewModel> BookingViewModels { get; set; }
 	}
 }
