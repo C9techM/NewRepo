@@ -8,7 +8,7 @@
     .container {
         display: flex;
         justify-content: center;
-        align-items: center;
+        align-items: baseline;
         height: 100vh;
     }
 
@@ -61,7 +61,7 @@
                 <label for="ConfirmPassword">Confirm Password:</label>
                 <input type="Password" text="password" class="form-control"  placeholder="Re-enter password" name="ConfirmPassword">
             </div>
-            
+            <br />
             <button type="submit" class="btn btn-primary">Sign Up</button>
         }
         <p>Have an account already? <a href="@Url.Action("Login", "Account")">Login</a></p>
